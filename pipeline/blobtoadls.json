@@ -1,0 +1,110 @@
+{
+	"name": "blobtoadls",
+	"properties": {
+		"description": "copying from blob to adls",
+		"activities": [
+			{
+				"name": "Copy_z7a",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [
+					{
+						"name": "Source",
+						"value": "blob//HouseRent.csv"
+					},
+					{
+						"name": "Destination",
+						"value": "adls/github/houserent"
+					}
+				],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobStorageReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings",
+							"skipLineCount": 0
+						}
+					},
+					"sink": {
+						"type": "JsonSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "JsonWriteSettings",
+							"filePattern": "arrayOfObjects"
+						}
+					},
+					"enableStaging": false,
+					"validateDataConsistency": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "city",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['city']"
+								}
+							},
+							{
+								"source": {
+									"name": "model",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['model']"
+								}
+							},
+							{
+								"source": {
+									"name": "bhk",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['bhk']"
+								}
+							},
+							{
+								"source": {
+									"name": "rent",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['rent']"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SourceDataset_z7a",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DestinationDataset_z7a",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"annotations": []
+	}
+}
