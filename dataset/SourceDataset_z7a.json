@@ -1,0 +1,41 @@
+{
+	"name": "SourceDataset_z7a",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "HouseRent.csv",
+				"container": "blob"
+			},
+			"columnDelimiter": ",",
+			"rowDelimiter": "\n",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "city",
+				"type": "String"
+			},
+			{
+				"name": "model",
+				"type": "String"
+			},
+			{
+				"name": "bhk",
+				"type": "String"
+			},
+			{
+				"name": "rent",
+				"type": "String"
+			}
+		]
+	}
+}
